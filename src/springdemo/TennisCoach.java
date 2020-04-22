@@ -1,12 +1,13 @@
  package springdemo;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope("prototype")
 public class TennisCoach implements Coach {
 	@Autowired
 	@Qualifier("randomFortuneService")
@@ -18,5 +19,13 @@ public class TennisCoach implements Coach {
 	@Override
 	public String getDailyWorkout() {
 		return("Practice your backhand volley");
+	}
+	@PostConstruct
+	public void startup() {
+		System.out.println("Starting...");
+	}
+	@PreDestroy
+	public void cleanup() {
+		System.out.println("Cleaning...");
 	}
 }
